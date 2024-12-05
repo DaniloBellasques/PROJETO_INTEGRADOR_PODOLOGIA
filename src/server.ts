@@ -14,8 +14,10 @@ const server = express()
 server.use(mainRoutes)
 
 server.set('view engine', 'mustache')
+server.use(express.json());
 
 server.set('views',path.join(__dirname, 'views'))
+server.use(express.urlencoded({ extended: true })); 
 
 server.engine('mustache', mustache())
 

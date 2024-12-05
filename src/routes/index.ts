@@ -7,6 +7,7 @@ const router = Router()
 router.get('/',HomeController.home)
 
 router.get('/dadospessoais', HomeController.dadospessoais)
+router.post('/dadospessoais', HomeController.dadosPessoaisEnviar)
 
 router.get('/dadosgerais', HomeController.dadosgerais)
 
@@ -21,5 +22,6 @@ router.get('/alteracoeselesoes2', HomeController.alteracoeselesoes2)
 router.get('/comentarioseobservacoes', HomeController.comentarioseobservacoes)
 
 router.get('/login', HomeController.login)
+router.get('/teste', HomeController.teste)
 
 export default router

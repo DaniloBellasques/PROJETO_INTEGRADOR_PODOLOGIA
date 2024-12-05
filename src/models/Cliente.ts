@@ -1,81 +1,85 @@
-import {Model, DataTypes} from 'sequelize'
+import { Model, DataTypes } from 'sequelize'
 import { sequelize } from '../instances/mysql'
 
-//DADOS PESSOAIS 
-
-export interface ClienteInstance extends Model{
-    id_cliente: number,
-    nome: string,
-    data: Date,
-    endereco: string,
-    bairro: string,
-    cidade: string,
-    estado: string,
-    cep: string,
-    tel_res: string,
-    tel: string,
-    tel_emergencia: string,
-    contato: string,
-    data_nascimento: Date,
-    profissao: string,
-    email: string,
-    sexo: "Masculino" | "Feminino" | "Outro"
+export interface ClienteInstance extends Model {
+    id_cliente: number;
+    nome: string;
+    data: Date;
+    endereco: string;
+    bairro: string;
+    cidade: string;
+    estado: string;
+    cep: string;
+    tel_res: string;
+    tel: string;
+    tel_emergencia: string;
+    contato: string;
+    data_nascimento: Date;
+    profissao: string;
+    email: string;
+    sexo: "Masculino" | "Feminino" | "Outro";
 }
 
-export const dadopessoal = sequelize.define<ClienteInstance>("Pessoal,",{
-    id_cliente:{
+export const Cliente = sequelize.define<ClienteInstance>("Cliente", {
+    id_cliente: {
         primaryKey: true,
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        autoIncrement: true
     },
-    nome:{
-        type: DataTypes.STRING
+    nome: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
-    data:{
+    data: {
         type: DataTypes.DATE
     },
-    endereco:{
+    endereco: {
         type: DataTypes.STRING
     },
-    bairro:{
+    bairro: {
         type: DataTypes.STRING
     },
-    cidade:{
+    cidade: {
         type: DataTypes.STRING
     },
-    estado:{
+    estado: {
         type: DataTypes.STRING
     },
-    cep:{
+    cep: {
+        type: DataTypes.STRING,
+        validate: {
+            is: /^\d{5}-\d{3}$/ // Exemplo de validação de CEP
+        }
+    },
+    tel_res: {
         type: DataTypes.STRING
     },
-    tel_res:{
+    tel: {
         type: DataTypes.STRING
     },
-    tel:{
+    tel_emergencia: {
         type: DataTypes.STRING
     },
-    tel_emergencia:{
+    contato: {
         type: DataTypes.STRING
     },
-    contato:{
-        type: DataTypes.STRING
-    },
-    data_nascimento:{
+    data_nascimento: {
         type: DataTypes.DATE
     },
-    profissao:{
+    profissao: {
         type: DataTypes.STRING
     },
-    email:{
-        type: DataTypes.STRING
+    email: {
+        type: DataTypes.STRING,
+        validate: {
+            isEmail: true
+        }
     },
     sexo: {
-        type: DataTypes.ENUM("Masculino", "Feminino", "Outro"), // Define os valores possíveis
-        allowNull: false, // Opcional: torna o campo obrigatório
+        type: DataTypes.ENUM("Masculino", "Feminino", "Outro"),
+        allowNull: false
     }
-    
-
-},{
-    tableName:'cliente',
-    timestamps:false
-})
+}, {
+    tableName: 'cliente',
+    timestamps: false
+});
